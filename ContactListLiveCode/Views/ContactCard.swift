@@ -7,14 +7,19 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ContactCard: View {
+    var contact: Contact
     var body: some View {
         ZStack {
             Color("rmit-blue")
                 .ignoresSafeArea()
             VStack{
-                CircleView()
-                Text("Tom Huynh")
+                MapView(coordinate: contact.locationCoordinate)
+                    .frame(height: 250)
+                CircleView(image: contact.image)
+                    .offset(y:-100)
+                    .padding(.bottom, -100)
+                Text(contact.name)
                     .font(.system(size: 40, weight: .bold, design: .serif))
                     .foregroundStyle(.white)
                 
@@ -24,9 +29,9 @@ struct ContentView: View {
                     .frame(width: 225)
                 
                 Group {
-                    InfoView(text: "0123456789", imageName: "phone.fill")
+                    InfoView(text: contact.phone, imageName: "phone.fill")
        
-                    InfoView(text: "tom.huynh@rmit.edu.vn", imageName: "envelope.fill")
+                    InfoView(text: contact.email, imageName: "envelope.fill")
                 }
                 .padding()
                 
@@ -38,5 +43,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContactCard(contact: contacts[0])
 }
